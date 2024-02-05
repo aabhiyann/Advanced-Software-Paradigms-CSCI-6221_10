@@ -1,0 +1,36 @@
+# Programming Language used : Python
+
+def fruits():
+    def shop1():
+        apple = 20
+        print('In shop 1(static), apple:'+str(apple))
+        shop1a()
+    
+    def shop1a():
+        banana = apple + 10
+        print("In shop 1a(static), banana:"+str(banana))
+        print("In shop 1a(static), apple:"+str(apple))
+        
+        
+    def shop2():
+        global apple
+        apple = 55
+        print('In shop 2(dynamic), apple:'+str(apple))
+        shop2a()
+    
+    def shop2a():
+        banana = apple + 10
+        print("In shop 2a(dynamic), banana:"+str(banana))
+        print("In shop 2a(dynamic), apple:"+str(apple))
+    
+    global apple
+    apple = 10
+    print('Initial apple:'+str(apple))
+    print('--------')
+    shop1()
+    print('Final apple(static):'+str(apple))
+    print('--------')
+    shop2()
+    print('Final apple(dynamic):'+str(apple))
+
+fruits()
