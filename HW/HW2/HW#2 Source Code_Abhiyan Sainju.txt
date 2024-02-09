@@ -1,3 +1,5 @@
+# Programming Language used : Python
+
 import random
 
 def input_numbers():
