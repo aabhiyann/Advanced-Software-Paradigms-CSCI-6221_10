@@ -1,3 +1,5 @@
+# Programming Language used : Python
+
 def input_numbers():
     a, b = map(int, input("Enter two non-zero positive integers: ").split())
     
@@ -27,27 +29,20 @@ def seperate_function(my_function, numbers):
         
 def return_calculation(operation, odd, even):
     
-    #function calls wihtin another function(indirect)
+    #function calls within another function(indirect)
     if operation == "add_even":
-        return add_even(even)
+        return add(even)
     elif operation == "add_odd":
-        return add_odd(odd)
+        return add(odd)
     elif operation == "add_all":
-        return add_even(even) + add_odd(odd)
+        return add(even) + add(odd)
     else:
         return "Invalid operation!"
 
-def add_even(evennumbers):
+def add(numbers):
     total = 0
-    for element in evennumbers:
+    for element in numbers:
         total += element
     return total
-    
-def add_odd(oddnumbers):
-    total = 0
-    for element in oddnumbers:
-        total += element
-    return total
-    
-    
+
 input_numbers()
