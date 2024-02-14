@@ -1,5 +1,4 @@
 // Program is in C
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -49,9 +48,9 @@ int main() {
 
     // Get input range
     printf("Please enter 2 numbers (starting and ending values of the range) in seperate inputs\n");
-    printf("\nEnter the first (starting number in the range:) ");
+    printf("\nEnter the first (starting number in the range): ");
     scanf("%d", &start);
-    printf("\nEnter the second (end number in the range:) ");
+    printf("\nEnter the second (end number in the range): ");
     scanf("%d", &end);
     
     if(start<= 0 || end <= 0){
