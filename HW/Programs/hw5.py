@@ -47,7 +47,8 @@ class Parallelogram(Shape): # Class for Parallelogram (Inherits class Shape)
     
     def area(self): # Polymorphism
         return self.b * self.h
-    
+   
+# Function to check the input validity 
 def number_input(message):
     while True:
         try:
