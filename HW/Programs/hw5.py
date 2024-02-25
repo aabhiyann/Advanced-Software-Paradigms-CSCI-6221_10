@@ -8,18 +8,10 @@ class Shape:
     def get_area(self):
         pass
     
-    # Function to check if the input parameters are valid
-    def check_input(self, *inputs):
-        for input in inputs:
-            if input <= 0:
-                raise ValueError("Invalid Input!! (The input(s) must be a integer greater than 0)")
-        
-        
 # Inheritance: Triangle, Rectangle, Square, Circle, Parallelogram inherit from Shape
 # Polymorphism: get_area() method implemented differently for each shape class
 class Triangle(Shape): # Class for Triangle (Inherits class Shape)
     def __init__(self, b, h):
-        self.check_input(b, h)
         self.b = b
         self.h = h
     
@@ -28,7 +20,6 @@ class Triangle(Shape): # Class for Triangle (Inherits class Shape)
     
 class Rectangle(Shape): # Class for Rectangle (Inherits class Shape)
     def __init__(self, l, w):
-        self.check_input(l, w)
         self.l = l
         self.w = w
     
@@ -37,7 +28,6 @@ class Rectangle(Shape): # Class for Rectangle (Inherits class Shape)
     
 class Square(Shape): # Class for Square (Inherits class Shape)
     def __init__(self, s):
-        self.check_input(s)
         self.s = s
 
     def area(self): # Polymorphism
@@ -45,7 +35,6 @@ class Square(Shape): # Class for Square (Inherits class Shape)
     
 class Circle(Shape): # Class for Circle (Inherits class Shape)
     def __init__(self, r):
-        self.check_input(r)
         self.r = r
 
     def area(self): # Polymorphism
@@ -53,7 +42,6 @@ class Circle(Shape): # Class for Circle (Inherits class Shape)
     
 class Parallelogram(Shape): # Class for Parallelogram (Inherits class Shape)
     def __init__(self, b, h):
-        self.check_input(b, h)
         self.b = b
         self.h = h
     

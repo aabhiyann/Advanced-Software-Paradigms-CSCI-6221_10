@@ -64,7 +64,10 @@ def number_input(message):
     while True:
         try:
             parameter = float(input(message))
-            return parameter
+            if parameter <= 0:
+                print("Your inputs are not valid! Please enter non-zero positive numbers.")
+            else:    
+                return parameter
         except ValueError:
             print("Invalid input!!! Please enter a number.")
 
