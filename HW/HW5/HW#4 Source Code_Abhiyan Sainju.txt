@@ -1,0 +1,105 @@
+# This program is written in Python
+
+# class for Queue and it's functions
+class Queue_adt:
+    def __init__(self, datatype):
+        self.datatype = datatype # datatype is checked in print_functions function for push operation
+        max_size = 100 
+        self.queuelist = [None] * max_size #initialize list queue list with max size 100
+        self.front = self.rear = -1 #initially front and rear point to -1
+
+    def push(self, data):
+        if self.front == -1: # if no elements in queue, set pointers to 0
+            self.front = self.rear = 0
+        else:
+            self.rear = (self.rear + 1) 
+        self.queuelist[self.rear] = data
+        print(f" -- ({data}) has been pushed into the queue -- ")
+
+    def pop(self):
+        if self.front == -1: #if front of queue is -1, the queue is empty
+            print(" -- The queue is empty. Nothing to be popped ! --")
+            return None
+        data = self.queuelist[self.front]
+        if self.front == self.rear: # If only one element left in the queue
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1)
+        print(f" -- ({data}) has been popped from the queue -- ")
+        return data
+
+    def count(self):
+        if self.front == -1:  #if front is -1, the queue is empty
+            print("Queue is empty.")
+        else:
+            elements = (self.rear - self.front + 1)
+            print(f" -- The number of elements in the queue is: {elements} -- ")
+
+
+# Function for user to select Integer or String datatype
+def input_type():
+    print("Select an option:")
+    print("a. Integer")
+    print("b. String")
+
+    input_choice = input("Enter your choice: ").strip().lower()
+
+    if input_choice == 'a':
+        integer_adt()
+    elif input_choice == 'b':
+        string_adt()
+    else:
+        print("Invalid! (Please select a or b)")
+
+# Function to handle Integer queue operations
+def integer_adt():
+    print("You've selected the Integer option.")
+    integer_queue = Queue_adt(int)
+    print_functions(integer_queue)
+
+# Function to handle string queue operations
+def string_adt():
+    print("You've selected the String option.")
+    string_queue = Queue_adt(str)
+    print_functions(string_queue)
+
+# Function to print menu and call appropriate queue functions
+def print_functions(queue):
+    while True:
+        print("\n   -- Main Menu --  ")
+        print("Select the desired function:")
+        print("a. push")
+        print("b. pop")
+        print("c. count")
+        print("d. end")
+        input_choice = input("Enter the function to be used: ").strip().lower()
+
+        if input_choice == 'a':
+            if queue.datatype == int:
+                try:
+                    data = int(input("Enter the integer data to be pushed into the Queue: "))
+                except ValueError:
+                    print("Invalid input! Please enter an integer.")
+                    continue
+            elif queue.datatype == str:
+                data = input("Enter the string data to be pushed into the Queue: ")
+                
+            queue.push(data) #if user selects a, push
+
+        elif input_choice == 'b':
+            queue.pop()  #if user selects b, pop
+
+        elif input_choice == 'c':
+            queue.count() #if user selects c, count
+            
+        elif input_choice == 'd':
+            print(" -- Program is ending...  -- ")
+            break #if user selects d, terminate the program
+        else:
+            print("Invalid! (Please select a, b, c, or d)")
+    
+    
+try:
+    input_type() # function to take input type from the user (integer or string)
+except RuntimeError as e:
+    print("Error:", e)
