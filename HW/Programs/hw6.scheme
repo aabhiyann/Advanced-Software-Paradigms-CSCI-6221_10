@@ -1,0 +1,51 @@
+
+(define (reverse inputlist)
+  ;; Function to reverse a nested list 
+  ;; recursion function for reversing
+    (define (inverse input rev-lst)
+        (if (null? input)
+            rev-lst
+            (let ((next (car input)))
+                 (if (list? next)
+                     ;; If the car of the input list is a list, recursively reverse it
+                     (inverse (cdr input) (cons (inverse next '()) rev-lst))
+                     ;; If the car of the input list is not a list, just add it to the reversed list
+                     (inverse (cdr input) (cons next rev-lst))))))
+    ;; Call the function with the input list and an empty list as the initial reversed list
+    (inverse inputlist '()))
+
+
+(define (get-list)
+  ;; Function to get a list from user input
+  (let loop ((user-input (read))
+             (acc '()))         ; Accumulator for building the list
+    (cond ((equal? user-input 'end) acc)    ; Return the constructed list if 'end' is found
+          (else (loop (read) (cons user-input acc))))))
+      
+
+;; Predefined list for demonstration
+(display "This program reverses the user's general input")
+(newline)
+(display "eg: for input '(A (B C (D E)) F)', output will be: ")
+(define input_list '(A (B C (D E)) F))
+(display (reverse input_list))
+(newline)
+
+;; Prompting the user for input
+(newline)
+(display "Usage: Enter the input list enclosed in brackets ( ) and type 'end' to finish: ")
+(newline)
+(display "Example usage: (A B (C D) E A B) end")
+(newline)
+(display " ")
+(newline)
+(display "Your list: ")
+(define user_input (get-list))
+(display user_input)
+(newline)
+(display "Reversed list: ")
+
+;; Reversing the user input list and displaying the result
+(define input_list1 user_input)
+(display (reverse input_list1))
+(newline)
