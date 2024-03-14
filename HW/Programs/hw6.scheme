@@ -1,6 +1,6 @@
 
 (define (reverse inputlist)
-  ;; Function to reverse a nested l                           ist 
+  ;; Function to reverse a nested l                                                                           ist 
   ;; recursion function for reversing
     (define (inverse input rev-lst)
         (if (null? input)
