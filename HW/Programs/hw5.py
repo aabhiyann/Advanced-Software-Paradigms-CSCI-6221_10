@@ -7,7 +7,7 @@ class Shape:
         
     def get_area(self):
         pass
-    
+                        
 # Inheritance: Triangle, Rectangle, Square, Circle, Parallelogram inherit from Shape
 # Polymorphism: get_area() method implemented differently for each shape class
 class Triangle(Shape): # Class for Triangle (Inherits class Shape)
