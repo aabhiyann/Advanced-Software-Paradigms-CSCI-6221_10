@@ -1,0 +1,169 @@
+# Part 1: Facade Design Pattern (Structural)
+class Processor:
+    # SubSystem Class for Processor
+    @staticmethod
+    def get_cores():
+        while True:
+            try:
+                cores = int(input("Enter the number of cores for the processor: "))
+                if cores <= 0:
+                    raise ValueError("Number of cores must be a positive integer")
+                return cores
+            except ValueError as e:
+                print(f"Error: {e}. Please enter a valid number of cores. (Should be a positive integer)")
+
+class RAM:
+    # SubSystem Class for RAM
+    @staticmethod
+    def get_ram():
+        while True:
+            try:
+                ram = int(input("Enter the amount of RAM for the laptop (in GB): "))
+                if ram <= 0:
+                    raise ValueError("RAM amount must be a positive integer")
+                return ram
+            except ValueError as e:
+                print(f"Error: {e}. Please enter a valid amount of RAM. (Should be a positive integer)")
+
+class Display:
+    # SubSystem Class for Display
+    @staticmethod
+    def get_size():
+        while True:
+            try:
+                size = float(input("Enter the size of the display (inches): "))
+                if size <= 0:
+                    raise ValueError("Display size must be a positive number")
+                return size
+            except ValueError as e:
+                print(f"Error: {e}. Please enter a valid display size. (Should be a positive integer)")
+
+    @staticmethod
+    def get_resolution():
+        resolution = input("Enter the resolution of the display (e.g., 1920x1080): ")
+        return resolution
+
+class SpecsPrinter:
+    # Class to print the laptop specifications
+    def display_laptop_specs(self, laptop_specs):
+        cores = laptop_specs["processor_cores"]
+        ram = laptop_specs["ram"]
+        display_size = laptop_specs["display_size"]
+        display_resolution = laptop_specs["display_resolution"]
+        print(f"Your system has a {cores}-core processor, with {ram} GB RAM and a {display_size}-inch {display_resolution} display.")
+
+class LaptopFacade:
+    # Facade Class
+    # Facade class provides simplified interface to interact with the various sub systems
+    def __init__(self):
+        self.processor = Processor()
+        self.ram = RAM()
+        self.display = Display()
+        self.specs_printer = SpecsPrinter()
+
+    def build_laptop(self):
+        try:
+            cores = self.processor.get_cores()
+            ram = self.ram.get_ram()
+            display_size = self.display.get_size()
+            display_resolution = self.display.get_resolution()
+            laptop_specs = {
+                "processor_cores": cores,
+                "ram": ram,
+                "display_size": display_size,
+                "display_resolution": display_resolution
+            }
+            self.specs_printer.display_laptop_specs(laptop_specs)
+            return laptop_specs
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+# Part 2: Builder Design Pattern (Creational)
+class House:
+    def __init__(self, builder):
+        self.rooms = builder.rooms
+        self.levels = builder.levels
+        self.roof = builder.roof
+
+    def __str__(self):
+        return f'House: {self.rooms} rooms, {self.levels} levels, {self.roof} roof.'
+
+class HouseBuilder:
+    def __init__(self):
+        self.rooms = None
+        self.levels = None
+        self.roof = None
+
+    def set_rooms(self, rooms):
+        self.rooms = rooms
+        return self
+
+    def set_levels(self, levels):
+        self.levels = levels
+        return self
+
+    def set_roof(self, roof):
+        self.roof = roof
+        return self
+
+    def build(self):
+        # House Builder return new instance of House by passing itself as a parameter
+        return House(self)
+
+class Director:
+    def __init__(self, builder):
+        self.builder = builder
+
+    def build_two_room_house(self): # Assume, every two room house is of one level and has a flat roof (A defined set of specifications)
+        return self.builder.set_rooms(2).set_levels(1).set_roof('flat').build()
+
+    def build_four_room_house(self):  # Assume every four room house is of 2 levels and has a pointy roof (A defined set of specifications)
+        return self.builder.set_rooms(4).set_levels(2).set_roof('pointy').build()
+
+    def build_house_with_user_input(self):
+        while True:
+            try:
+                rooms = int(input("Enter the number of rooms for the house (2, 3, 4, or 5): "))
+                if rooms == 2:
+                    return self.build_two_room_house()
+                elif rooms == 4:
+                    return self.build_four_room_house()
+                elif rooms not in [2, 3, 4, 5]:
+                    raise ValueError("Number of rooms should be 2, 3, 4, or 5")
+
+                levels = int(input("Enter the number of levels for the house (1 or 2): "))
+                if levels not in [1, 2]:
+                    raise ValueError("Number of levels should be 1 or 2")
+
+                roof = input("Enter the type of roof for the house (flat or pointy): ")
+                if roof not in ['flat', 'pointy']:
+                    raise ValueError("Roof should be flat or pointy")
+
+                return self.builder.set_rooms(rooms).set_levels(levels).set_roof(roof).build()
+            except ValueError as e:
+                print(f"Invalid input: {e}. Please try again.")
+
+# Function utilizing both design patterns (part c)
+def build_product():
+    while True:
+        choice = input("Do you want to build a laptop(Facade Design Pattern) or a house(Builder Design Pattern)? (laptop/house): ").lower()
+
+        if choice == "laptop": # for laptop (facade design pattern)
+            facade = LaptopFacade()
+            facade.build_laptop()
+            break
+        elif choice == "house": # for house ( builder design pattern)
+            house_builder = HouseBuilder() # Instantiating a new house builder
+            director = Director(house_builder) # Instantiating a new Director
+            user_house = director.build_house_with_user_input()
+            print(user_house)
+            break
+        else:
+            print("Invalid choice. Please enter 'laptop' or 'house'.")
+
+# Main/Test Function (part d)
+def main():
+    build_product()
+
+main()
