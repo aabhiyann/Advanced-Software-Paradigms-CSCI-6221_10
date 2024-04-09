@@ -1,0 +1,8 @@
+const N = 12
+range T = 0..N
+
+EVEN = (in[i:T] -> DECIDE_EVEN[i%2][i]),DECIDE_EVEN[i:T][b:T] = (when (i==0) out[b] -> EVEN).
+
+TRIPLE = (in[i:T] -> DECIDE_TRIPLE[i%3][i]),DECIDE_TRIPLE[i:T][b:T] = (when (i==0) out[b] -> TRIPLE | end-> END).
+
+|| TEST6 = (EVEN||TRIPLE).
